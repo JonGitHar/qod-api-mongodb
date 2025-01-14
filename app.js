@@ -21,9 +21,9 @@ mongoose.connect(dbURI, {
 });
 
 const quoteSchema = new mongoose.Schema({
-  text: String,
-  author: String,
-  genre: String
+  text: { type: String, required: true },
+  author: { type: String, required: true },
+  genre: { type: String, required: true }
 });
 
 const Quote = mongoose.model('Quote', quoteSchema);
