@@ -2,21 +2,12 @@ const express = require('express');
 const { MongoClient } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 8080;
+
 const dbUser = process.env.DB_USER || 'user';
 const dbPass = process.env.DB_PASS || 'pass';
 const dbHost = process.env.DB_HOST || 'qod-db';
 const dbPort = process.env.DB_PORT || '27017';
 const dbName = process.env.DB_NAME || 'qod';
-
-const dbURI = `mongodb://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}?authSource=admin`;
-
-async function connectToMongo() {
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-    await client.connect();
-    const db = client.db(dbName);
-    const collection = db.collection('quotes');
-    return { client, collection };
-  }
 
 const uri = `mongodb://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}?authSource=admin`;
 
@@ -74,7 +65,7 @@ app.get('/version', (req, res) => {
   const { version } = require('./package.json');
   res.json({ version });
 });
-  
+
 app.get('/', (req, res) => {
   res.redirect('/version');
 });
